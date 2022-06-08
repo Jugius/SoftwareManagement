@@ -1,0 +1,13 @@
+﻿
+namespace SoftwareManagement.Api.Domain.Models;
+
+public class ApplicationRelease
+{
+    public Guid Id { get; set; }
+    public string Version { get; set; }
+    public DateTime ReleaseDate { get; set; }
+    public ReleaseKind Kind { get; set; }
+    public Guid ApplicationId { get; set; }
+    public List<ReleaseDetail> Details { get; set; }
+    public List<ReleaseFile> Files { get; set; }
+}
