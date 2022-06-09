@@ -18,7 +18,7 @@ public static class ContractToDto
         {
             Id = Guid.Empty,
             ApplicationId = request.ApplicationId,
-            Version = request.Version,
+            Version = request.Version.ToString(),
             Kind = (int)request.Kind,
             ReleaseDate = request.ReleaseDate,
         };

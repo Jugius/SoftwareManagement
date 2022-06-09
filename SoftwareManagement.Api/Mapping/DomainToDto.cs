@@ -18,7 +18,7 @@ public static class DomainToDto
         {
             ApplicationId = domainRelease.ApplicationId,
             Id = domainRelease.Id,
-            Version = domainRelease.Version,
+            Version = domainRelease.Version.ToString(),
             Kind = (int)domainRelease.Kind,
             ReleaseDate = domainRelease.ReleaseDate
         };

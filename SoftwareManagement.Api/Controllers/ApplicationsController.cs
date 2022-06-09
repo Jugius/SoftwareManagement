@@ -75,7 +75,7 @@ public class ApplicationsController : Controller
 
         var updateResult = await _applicationsService.Delete(request);
 
-        return updateResult.Success ? Json(new Contracts.BaseResponse { Status = Contracts.Common.Enums.Status.Ok}) : Json(updateResult.Error.ToResponse());
+        return updateResult.Success ? Json(Contracts.BaseResponse.Ok) : Json(updateResult.Error.ToResponse());
     }
 
 }

@@ -20,7 +20,7 @@ public static class DtoToDomain
             Id = dbRelease.Id,
             Kind = (ReleaseKind)dbRelease.Kind,
             ReleaseDate = dbRelease.ReleaseDate,
-            Version = dbRelease.Version,
+            Version = new Version(dbRelease.Version),
             ApplicationId = dbRelease.ApplicationId,
             Details = dbRelease.Details?.Count > 0 ? dbRelease.Details.Select(a => a.ToDomain()).ToList() : null,
             Files = dbRelease.Files?.Count > 0 ? dbRelease.Files.Select(a => a.ToDomain()).ToList() : null

@@ -17,4 +17,25 @@ public static class DomainToResponse
             Status = Contracts.Common.Enums.Status.Ok,
             Application = app
         };
+
+    public static ReleaseResponse ToResponse(this ApplicationRelease release) =>
+        new ReleaseResponse
+        {
+            Status = Contracts.Common.Enums.Status.Ok,
+            Release = release
+        };
+
+    public static DetailResponse ToResponse(this ReleaseDetail detail) =>
+        new DetailResponse
+        {
+            Status = Contracts.Common.Enums.Status.Ok,
+            Detail = detail
+        };
+
+    public static FileResponse ToResponse(this ReleaseFile file) =>
+        new FileResponse
+        {
+            Status = Contracts.Common.Enums.Status.Ok,
+            File = file
+        };
 }

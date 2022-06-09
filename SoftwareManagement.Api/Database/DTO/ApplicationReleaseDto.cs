@@ -6,6 +6,8 @@ public class ApplicationReleaseDto
 {
     public Guid Id { get; set; }
 
+
+    [Required]
     [MaxLength(20)]
     public string Version { get; set; }
     public DateTime ReleaseDate { get; set; }
