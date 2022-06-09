@@ -10,5 +10,6 @@ public enum Status
     HttpError,
     InvalidKey,
     NotFound,
-    DatabaseError
+    DatabaseError,
+    FileSystemError
 }
