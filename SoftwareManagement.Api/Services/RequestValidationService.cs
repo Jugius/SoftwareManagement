@@ -1,5 +1,5 @@
-﻿using SoftwareManagement.Api.Helpers;
-using SoftwareManagement.Api.Exceptions;
+﻿using SoftwareManagement.Api.Exceptions;
+using SoftwareManagement.Api.Services.Helpers;
 
 namespace SoftwareManagement.Api.Services;
 public class RequestValidationService

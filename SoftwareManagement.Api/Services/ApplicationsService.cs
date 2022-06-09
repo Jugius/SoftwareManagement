@@ -3,76 +3,84 @@ using SoftwareManagement.Api.Contracts.Requests;
 using SoftwareManagement.Api.Database;
 using SoftwareManagement.Api.Database.DTO;
 using SoftwareManagement.Api.Domain.Models;
-using SoftwareManagement.Api.Helpers;
 using SoftwareManagement.Api.Mapping;
+using SoftwareManagement.Api.Services.Extentions;
+using SoftwareManagement.Api.Services.Helpers;
 
 namespace SoftwareManagement.Api.Services;
 public class ApplicationsService
 {
-    private readonly AppDbContext dbContext;
-    public ApplicationsService(AppDbContext context) => dbContext = context;
+    private readonly AppDbContext _dbContext;
+    public ApplicationsService(AppDbContext context) => _dbContext = context;
     public async Task<List<ApplicationInfo>> GetAll(bool includeDetails)
     {
-        IQueryable<ApplicationInfoDto> query = dbContext.Applications;
+        IQueryable<ApplicationInfoDto> query = _dbContext.Applications;
 
         if (includeDetails)
-        {
             query = query
-                .Include(a => a.Releases).ThenInclude(a => a.Details).AsSplitQuery()
-                .Include(a => a.Releases).ThenInclude(a => a.Files).AsSplitQuery();
-        }
+                    .Include(a => a.Releases).ThenInclude(a => a.Details).AsSplitQuery()
+                    .Include(a => a.Releases).ThenInclude(a => a.Files).AsSplitQuery();
+
         var result = await query.ToListAsync();
         return result.Select(a => a.ToDomain()).ToList();
     }
 
     public async Task<OperationResult<ApplicationInfo>> GetById(Guid id, bool includeDetails)
     {
-        IQueryable<ApplicationInfoDto> query = dbContext.Applications.Where(a => a.Id == id);
+        IQueryable<ApplicationInfoDto> query = _dbContext.Applications.Where(a => a.Id == id);
 
         if (includeDetails)
             query = query.Include(a => a.Releases).ThenInclude(a => a.Details);
         try
         {
             var result = await query.FirstOrDefaultAsync();
-            return GetOkResultOrNotFound(result?.ToDomain());
+
+            if (result == null)
+                return OperationResult<ApplicationInfo>.NotFound();                
+            
+            return new OperationResult<ApplicationInfo>(result.ToDomain());
         }
         catch (Exception ex)
-        {
-            var error = new Exceptions.ApiException(Contracts.Common.Enums.Status.DatabaseError,ex.GetBaseException().Message);
-            return new OperationResult<ApplicationInfo>(error);
+        {            
+            return OperationResult<ApplicationInfo>.DatabaseError(ex.GetBaseException().Message);
         }
-    }
-    private static OperationResult<T> GetOkResultOrNotFound<T>(T obj) where T : new()
-    {
-        return obj == null ?
-                new OperationResult<T>(new Exceptions.ApiException(Contracts.Common.Enums.Status.NotFound)) :
-                new OperationResult<T>(obj);
-    }
-        
+    }        
+
+
 
     public async Task<OperationResult<ApplicationInfo>> GetByName(string name, bool includeDetails)
     {
-        IQueryable<ApplicationInfoDto> query = dbContext.Applications.Where(a => a.Name == name);
+        IQueryable<ApplicationInfoDto> query = _dbContext.Applications.Where(a => a.Name == name);
 
         if (includeDetails)
             query = query.Include(a => a.Releases).ThenInclude(a => a.Details);
 
-        var result = await query.FirstOrDefaultAsync();
-        return new OperationResult<ApplicationInfo>(result?.ToDomain());
+        try
+        {
+            var result = await query.FirstOrDefaultAsync();
+
+            if (result == null)
+                return OperationResult<ApplicationInfo>.NotFound();
+
+            return new OperationResult<ApplicationInfo>(result.ToDomain());
+        }
+        catch (Exception ex)
+        {
+            return OperationResult<ApplicationInfo>.DatabaseError(ex.GetBaseException().Message);
+        }
     }    
     public async Task<OperationResult<ApplicationInfo>> Create(CreateApplicationRequest request)
     {
         var dto = request.ToDto();
         try
         {
-            dbContext.Applications.Add(dto);
-            await dbContext.SaveChangesAsync();
+            _dbContext.Applications.Add(dto);
+            await _dbContext.SaveChangesAsync();
             return new OperationResult<ApplicationInfo>(dto.ToDomain());
         }
         catch (Exception ex)
         {
-            var error = new Exceptions.ApiException(Contracts.Common.Enums.Status.DatabaseError, ex.GetBaseException().Message);
-            return new OperationResult<ApplicationInfo>(error);
+            return OperationResult<ApplicationInfo>.DatabaseError(ex.GetBaseException().Message);
         }
     }
 
@@ -80,40 +88,36 @@ public class ApplicationsService
     {
         try
         {
-            var dto = await dbContext.Applications.FirstOrDefaultAsync(a => a.Id == request.Id);
+            var dto = await _dbContext.Applications.FirstOrDefaultAsync(a => a.Id == request.Id);
             if (dto == null)
-                return new OperationResult<ApplicationInfo>(new Exceptions.ApiException(Contracts.Common.Enums.Status.NotFound));
+                return OperationResult<ApplicationInfo>.NotFound();
 
-            dto.Name = request.Name;
-            dto.Description = request.Description;
-            dto.IsPublic = request.IsPublic;
+            dto.UpdateWith(request);
 
-            await dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
             return new OperationResult<ApplicationInfo>(dto.ToDomain());
         }
         catch (Exception ex)
         {
-            var error = new Exceptions.ApiException(Contracts.Common.Enums.Status.DatabaseError, ex.GetBaseException().Message);
-            return new OperationResult<ApplicationInfo>(error);
+            return OperationResult<ApplicationInfo>.DatabaseError(ex.GetBaseException().Message);
         }        
     }
     public async Task<OperationResult<bool>> Delete(DeleteRequest request)
     {
         try
         {
-            var dto = await dbContext.Applications.FirstOrDefaultAsync(a => a.Id == request.Id);
+            var dto = await _dbContext.Applications.FirstOrDefaultAsync(a => a.Id == request.Id);
             if (dto == null)
-                return new OperationResult<bool>(new Exceptions.ApiException(Contracts.Common.Enums.Status.NotFound));
+                return OperationResult<bool>.NotFound();
 
-            dbContext.Applications.Remove(dto);
-            await dbContext.SaveChangesAsync();
+            _dbContext.Applications.Remove(dto);
+            await _dbContext.SaveChangesAsync();
 
             return new OperationResult<bool>(true);
         }
         catch (Exception ex)
         {
-            var error = new Exceptions.ApiException(Contracts.Common.Enums.Status.DatabaseError, ex.GetBaseException().Message);
-            return new OperationResult<bool>(error);
+            return OperationResult<bool>.DatabaseError(ex.GetBaseException().Message);
         }
     }
 }

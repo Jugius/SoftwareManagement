@@ -19,7 +19,7 @@ public class ReleaseFileDto
     public string CheckSum { get; set; }
 
     [Required]
-    public ulong Size { get; set; }
+    public int Size { get; set; }
 
     [Required]
     public DateTime Uploaded { get; set; }
