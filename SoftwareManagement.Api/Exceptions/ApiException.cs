@@ -6,9 +6,9 @@ public class ApiException : Exception
 {
     public Status Status { get; }
 
-    public ApiException(Status status)
+    public ApiException(Status status) : base(string.Empty)
     {
-        this.Status = status;
+        this.Status = status;        
     }
     public ApiException(Status status, string message) : base(message) 
     {

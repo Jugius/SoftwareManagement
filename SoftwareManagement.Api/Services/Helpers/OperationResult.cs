@@ -16,7 +16,7 @@ public class OperationResult<T>
     public bool Success { get; }
 
     public static OperationResult<T> NotFound() =>
-        new OperationResult<T>(new Exceptions.ApiException(Contracts.Common.Enums.Status.NotFound));
+        new OperationResult<T>(new Exceptions.ApiException(Contracts.Common.Enums.Status.NotFound));    
 
     public static OperationResult<T> DatabaseError() =>
         new OperationResult<T>(new Exceptions.ApiException(Contracts.Common.Enums.Status.DatabaseError));

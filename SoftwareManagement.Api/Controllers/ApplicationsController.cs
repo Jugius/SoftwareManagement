@@ -27,7 +27,7 @@ public class ApplicationsController : Controller
     public async Task<ActionResult> GetById(Guid id)
     {
         if (id == Guid.Empty)
-            return Json(new Contracts.Responses.ErrorResponse(Contracts.Common.Enums.Status.InvalidRequest));
+            return Json(Contracts.Response.InvalidRequest);
 
         var result = await _applicationsService.GetById(id, true);
         return result.Success ? Json(result.Value.ToResponse()) : Json(result.Error.ToResponse());
@@ -36,6 +36,9 @@ public class ApplicationsController : Controller
     [HttpGet("ByName")]
     public async Task<ActionResult> GetByName(string name)
     {
+        if (string.IsNullOrEmpty(name))
+            return Json(Contracts.Response.InvalidRequest);
+
         var result = await _applicationsService.GetByName(name, true);
         return result.Success ? Json(result.Value.ToResponse()) : Json(result.Error.ToResponse());
     }
@@ -75,7 +78,7 @@ public class ApplicationsController : Controller
 
         var updateResult = await _applicationsService.Delete(request);
 
-        return updateResult.Success ? Json(Contracts.BaseResponse.Ok) : Json(updateResult.Error.ToResponse());
+        return updateResult.Success ? Json(Contracts.Response.Ok) : Json(updateResult.Error.ToResponse());
     }
 
 }

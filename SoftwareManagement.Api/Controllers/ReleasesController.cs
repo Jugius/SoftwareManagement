@@ -53,7 +53,7 @@ public class ReleasesController : Controller
 
         var updateResult = await _releasesService.Delete(request);
 
-        return updateResult.Success ? Json(Contracts.BaseResponse.Ok) : Json(updateResult.Error.ToResponse());
+        return updateResult.Success ? Json(Contracts.Response.Ok) : Json(updateResult.Error.ToResponse());
     }
 
 

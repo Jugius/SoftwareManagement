@@ -4,7 +4,7 @@ using SoftwareManagement.Api.Services.Helpers;
 namespace SoftwareManagement.Api.Services;
 public class RequestValidationService
 {
-    public OperationResult<bool> Validate(Contracts.BaseRequest request)
+    public OperationResult<bool> Validate(Contracts.Request request)
     {
         if (string.IsNullOrEmpty(request.Key))
             return new OperationResult<bool>(new ApiException(Contracts.Common.Enums.Status.RequestDenied, "Api key is empty"));

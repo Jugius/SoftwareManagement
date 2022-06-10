@@ -55,7 +55,7 @@ public class DetailsController : Controller
 
         var updateResult = await _releaseDetailsService.Delete(request);
 
-        return updateResult.Success ? Json(Contracts.BaseResponse.Ok) : Json(updateResult.Error.ToResponse());
+        return updateResult.Success ? Json(Contracts.Response.Ok) : Json(updateResult.Error.ToResponse());
     }
 
 }

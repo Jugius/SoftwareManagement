@@ -42,7 +42,7 @@ public class FilesController : Controller
 
         var updateResult = await _ReleaseFilesService.Delete(request);
 
-        return updateResult.Success ? Json(Contracts.BaseResponse.Ok) : Json(updateResult.Error.ToResponse());
+        return updateResult.Success ? Json(Contracts.Response.Ok) : Json(updateResult.Error.ToResponse());
     }
 
 }
