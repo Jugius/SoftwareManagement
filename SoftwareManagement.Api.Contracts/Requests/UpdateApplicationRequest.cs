@@ -1,6 +1,6 @@
 ﻿
 namespace SoftwareManagement.Api.Contracts.Requests;
-public class UpdateApplicationRequest : BaseRequest
+public class UpdateApplicationRequest : Request
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

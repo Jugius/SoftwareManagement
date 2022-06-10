@@ -2,7 +2,7 @@
 
 namespace SoftwareManagement.Api.Contracts.Responses;
 
-public class FileResponse : BaseResponse
+public class FileResponse : Response
 {
     public ReleaseFile File { get; set; }
 }

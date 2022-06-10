@@ -2,7 +2,7 @@
 
 namespace SoftwareManagement.Api.Contracts.Responses;
 
-public class DetailsResponse : BaseResponse
+public class DetailsResponse : Response
 {
     public ReleaseDetail[] Details { get; set; }
 }

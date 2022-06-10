@@ -2,7 +2,7 @@
 
 namespace SoftwareManagement.Api.Contracts.Responses;
 
-public class ReleaseResponse : BaseResponse
+public class ReleaseResponse : Response
 {
     public ApplicationRelease Release { get; set; }
 }

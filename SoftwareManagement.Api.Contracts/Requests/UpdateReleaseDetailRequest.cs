@@ -1,7 +1,7 @@
 ﻿using SoftwareManagement.Api.Domain.Models;
 
 namespace SoftwareManagement.Api.Contracts.Requests;
-public class UpdateReleaseDetailRequest : BaseRequest
+public class UpdateReleaseDetailRequest : Request
 {
     public Guid Id { get; set; }
     public DetailKind Kind { get; set; }

@@ -1,7 +1,7 @@
 ﻿using SoftwareManagement.Api.Domain.Models;
 
 namespace SoftwareManagement.Api.Contracts.Requests;
-public class CreateReleaseRequest : BaseRequest
+public class CreateReleaseRequest : Request
 {
     public Version Version { get; set; }
     public DateTime ReleaseDate { get; set; }

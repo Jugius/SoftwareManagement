@@ -2,7 +2,7 @@
 
 namespace SoftwareManagement.Api.Contracts.Responses;
 
-public class ApplicationResponse : BaseResponse
+public class ApplicationResponse : Response
 {
     public ApplicationInfo Application { get; set; }
 }
