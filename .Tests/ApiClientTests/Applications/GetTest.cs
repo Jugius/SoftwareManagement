@@ -9,7 +9,7 @@ public class GetTest : TestClassBase
     [Fact]
     public async Task GetAllReturnsStatusOk()
     {
-        var request = new GetRequest();
+        var request = new GetApplicationsRequest();
         ApplySettingsToRequest(request);
         
         var response = await SoftwareManagement.ApiClient.Applications.Get.QueryAsync(request);

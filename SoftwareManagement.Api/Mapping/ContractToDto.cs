@@ -7,7 +7,7 @@ public static class ContractToDto
     public static ApplicationInfoDto ToDto(this CreateApplicationRequest request) =>
         new ApplicationInfoDto
         {   
-            Id=Guid.Empty,
+            Id = Guid.Empty,
             Name = request.Name,
             IsPublic = request.IsPublic,
             Description = request.Description

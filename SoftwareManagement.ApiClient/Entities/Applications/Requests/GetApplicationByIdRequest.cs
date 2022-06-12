@@ -1,7 +1,7 @@
 ﻿using SoftwareManagement.ApiClient.Entities.Interfaces;
 
 namespace SoftwareManagement.ApiClient.Entities.Applications.Requests;
-public class GetByIdRequest : BaseApplicationsRequest, IRequestGet
+public class GetApplicationByIdRequest : BaseApplicationsRequest, IRequestGet
 {
     protected internal override string ControllerCommandPath => base.ControllerCommandPath + "/byid";
     public Guid Id { get; set; }

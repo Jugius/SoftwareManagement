@@ -9,7 +9,7 @@ public class GetByIdTest : TestClassBase
     [Fact]
     public async Task GetByIdWithIncorrectIdReturnsStatusNotFound()
     {
-        var request = new GetByIdRequest();
+        var request = new GetApplicationByIdRequest();
         ApplySettingsToRequest(request);
 
         request.Id = Guid.NewGuid();
@@ -21,7 +21,7 @@ public class GetByIdTest : TestClassBase
     [Fact]
     public async Task GetByIdWithEmptyGuidThrows()
     {
-        var request = new GetByIdRequest();
+        var request = new GetApplicationByIdRequest();
         ApplySettingsToRequest(request);
 
         request.Id = Guid.Empty;
@@ -32,7 +32,7 @@ public class GetByIdTest : TestClassBase
     [Fact]
     public async Task GetByIdWithCorrectIdReturnsApp()
     {
-        var request = new GetByIdRequest();
+        var request = new GetApplicationByIdRequest();
         ApplySettingsToRequest(request);
 
         request.Id = new Guid("9ff10b44-7709-4fef-93b4-3de2cf03eb7c");

@@ -9,7 +9,7 @@ public abstract class TestClassBase
     protected TestingMode TestMode { get; set; } = TestingMode.Development;
     protected string DevelopmentDomainName = "localhost:7164";
     protected string ProductionDomainName = "_";
-    protected string DevelopmentUserKey = "test";
+    protected string DevelopmentUserKey = "testKey";
     protected string ProductionUserKey = "_";
 
     public TestClassBase(ITestOutputHelper output)

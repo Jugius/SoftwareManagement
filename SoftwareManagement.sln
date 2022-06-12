@@ -14,11 +14,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareManagement.Api.Doma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareManagement.Api.Contracts", "SoftwareManagement.Api.Contracts\SoftwareManagement.Api.Contracts.csproj", "{9C6249CF-2B07-4950-8718-F029C04A47EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareManagement.ApiClient", "SoftwareManagement.ApiClient\SoftwareManagement.ApiClient.csproj", "{B73FB533-46E8-4A7B-8C4B-45A08BF94BD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoftwareManagement.ApiClient", "SoftwareManagement.ApiClient\SoftwareManagement.ApiClient.csproj", "{B73FB533-46E8-4A7B-8C4B-45A08BF94BD1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Tests", ".Tests", "{55816882-3850-4C39-993D-E4354AA2861E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiClientTests", ".Tests\ApiClientTests\ApiClientTests.csproj", "{112DB300-F685-452E-B41D-B62412173FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClientTests", ".Tests\ApiClientTests\ApiClientTests.csproj", "{112DB300-F685-452E-B41D-B62412173FE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{F53DFD15-97B8-4723-89C1-1BABB71A4735}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{84FDEFBC-9CF6-4142-851A-811757043116} = {F53DFD15-97B8-4723-89C1-1BABB71A4735}
+		{B5AC0F79-ED4B-4368-867E-685CC90313A0} = {F53DFD15-97B8-4723-89C1-1BABB71A4735}
+		{9C6249CF-2B07-4950-8718-F029C04A47EE} = {F53DFD15-97B8-4723-89C1-1BABB71A4735}
 		{112DB300-F685-452E-B41D-B62412173FE7} = {55816882-3850-4C39-993D-E4354AA2861E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

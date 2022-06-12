@@ -99,10 +99,8 @@ public sealed class HttpEngine<TRequest, TResponse> : HttpEngine
             _ => throw new NotImplementedException()
         };
 
-        using var stream = new MemoryStream();
-        await System.Text.Json.JsonSerializer.SerializeAsync(stream, request);
-        using StreamContent streamContent = new StreamContent(stream);
-        using HttpRequestMessage requestMessage = new HttpRequestMessage(method, uri) { Content = streamContent };
+        using StringContent content = new StringContent(JsonSerializer.Serialize(request, jOptions), System.Text.Encoding.UTF8, "application/json");
+        using HttpRequestMessage requestMessage = new HttpRequestMessage(method, uri) { Content = content };
 
         return await HttpEngine.HttpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
     }

@@ -1,7 +1,7 @@
 ﻿using SoftwareManagement.ApiClient.Entities.Interfaces;
 
 namespace SoftwareManagement.ApiClient.Entities.Applications.Requests;
-public class GetByNameRequest : BaseApplicationsRequest, IRequestGet
+public class GetApplicationByNameRequest : BaseApplicationsRequest, IRequestGet
 {
     protected internal override string ControllerCommandPath => base.ControllerCommandPath + "/byname";
     public string Name { get; set; }
