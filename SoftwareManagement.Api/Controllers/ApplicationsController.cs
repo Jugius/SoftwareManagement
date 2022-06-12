@@ -17,9 +17,9 @@ public class ApplicationsController : Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult> Get()
+    public async Task<ActionResult> Get(bool? detailed)
     {
-        var apps = await _applicationsService.GetAll(false);
+        var apps = await _applicationsService.GetAll(detailed.GetValueOrDefault(false));
         return Json(apps.ToResponse());
     }
 
