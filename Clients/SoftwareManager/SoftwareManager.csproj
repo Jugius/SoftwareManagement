@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\icon_add_48px.png" />
+    <None Remove="Resources\icon_api.ico" />
+    <None Remove="Resources\icon_download_48px.png" />
+    <None Remove="Resources\icon_edit_48px.png" />
+    <None Remove="Resources\icon_json_48px_.png" />
+    <None Remove="Resources\icon_json_save_48px.png" />
+    <None Remove="Resources\icon_refresh_48px.png" />
+    <None Remove="Resources\icon_remove_48px.png" />
+    <None Remove="Resources\icon_settings_48px.png" />
+    <None Remove="Resources\icon_website_48px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OohelpSoft.LibControls.Core.WPF" Version="1.1.0" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SoftwareManagement.Api.Domain\SoftwareManagement.Api.Domain.csproj" />
+    <ProjectReference Include="..\..\SoftwareManagement.ApiClient\SoftwareManagement.ApiClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Telerik.Windows.Controls">
+      <HintPath>..\..\..\..\Resources\Packages\Telerik UI for WPF\WPF60\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView">
+      <HintPath>..\..\..\..\Resources\Packages\Telerik UI for WPF\WPF60\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input">
+      <HintPath>..\..\..\..\Resources\Packages\Telerik UI for WPF\WPF60\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data">
+      <HintPath>..\..\..\..\Resources\Packages\Telerik UI for WPF\WPF60\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icon_add_48px.png" />
+    <Resource Include="Resources\icon_api.ico" />
+    <Resource Include="Resources\icon_download_48px.png" />
+    <Resource Include="Resources\icon_edit_48px.png" />
+    <Resource Include="Resources\icon_json_48px_.png" />
+    <Resource Include="Resources\icon_json_save_48px.png" />
+    <Resource Include="Resources\icon_refresh_48px.png" />
+    <Resource Include="Resources\icon_remove_48px.png" />
+    <Resource Include="Resources\icon_settings_48px.png" />
+    <Resource Include="Resources\icon_website_48px.png" />
+  </ItemGroup>
+
+</Project>
