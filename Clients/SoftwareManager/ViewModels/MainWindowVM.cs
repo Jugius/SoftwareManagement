@@ -146,11 +146,11 @@ namespace SoftwareManager.ViewModels
         {
             if (obj is not ReleaseDetailVM detail) return;
 
-            ReleaseDetailVM newdetail = DialogProvider.ShowReleaseDetailDialog(detail);
+            ReleaseDetailVM updatedDetail = DialogProvider.ShowReleaseDetailDialog(detail);
 
-            if (detail == null) return;
+            if (updatedDetail == null) return;
 
-            var res = await ApplicationsService.Edit(detail);
+            var res = await ApplicationsService.Edit(updatedDetail);
 
             if (!res.Success)
                 DialogProvider.ShowException(res.ErrorMessage, "Ошибка записи в базу");
