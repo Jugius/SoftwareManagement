@@ -16,6 +16,17 @@ public class FileSystemService
         string fileName = Helpers.Guider.ToStringFromGuid(fileId);
         return SaveFile(fileBytes, fileName);
     }
+    public OperationResult<Stream> GetFileTream(Guid fileId)
+    {
+        string fileName = Helpers.Guider.ToStringFromGuid(fileId);
+        string filePath = Path.Combine(_uploadDirectory, fileName);
+
+        if (!System.IO.File.Exists(filePath))
+            return OperationResult<Stream>.FileSystemError("File not exist");
+
+        var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+        return new OperationResult<Stream>(stream);
+    }
     public async Task<OperationResult<bool>> SaveFile(byte[] fileBytes, string fileName)
     {
         string filePath = Path.Combine(_uploadDirectory, fileName);
@@ -32,7 +43,6 @@ public class FileSystemService
             return OperationResult<bool>.FileSystemError(ex.GetBaseException().Message);
         }
     }
-
 
     public OperationResult<bool> DeleteFile(Guid fileId)
     {
@@ -56,9 +66,6 @@ public class FileSystemService
             return OperationResult<bool>.FileSystemError(ex.GetBaseException().Message);
         }
     }
-
-
-
     public string GetCheckSum(byte[] bytes)
     {
         using var stream = new MemoryStream(bytes);

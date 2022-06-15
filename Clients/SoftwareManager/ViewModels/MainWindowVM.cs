@@ -235,7 +235,7 @@ namespace SoftwareManager.ViewModels
         {
             if (obj is not ReleaseFileVM file) return;
 
-            string filePath = file.GetDownloadRequestString();
+            string filePath = ApplicationsService.GetDownloadRequestString(file);
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(filePath) { UseShellExecute = true });
         });
         private RelayCommand _openInBrowser;  

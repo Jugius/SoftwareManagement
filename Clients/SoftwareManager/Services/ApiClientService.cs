@@ -257,7 +257,7 @@ namespace SoftwareManager.Services
 
         internal async Task DownloadFile(ReleaseFileVM file, string filePath)
         {
-            string path = file.GetDownloadRequestString();
+            string path = GetDownloadRequestString(file);
             using (HttpClient client = new HttpClient())
             {
                 using (HttpResponseMessage response = await client.GetAsync(path))
@@ -295,15 +295,15 @@ namespace SoftwareManager.Services
 
         }
 
-        private static string GetDownloadRequestString(ReleaseFileVM file)
+        public string GetDownloadRequestString(ReleaseFileVM file)
         {
             StringBuilder path = new StringBuilder(@"https://");
             if (ConfigManager.AppSettings.ServerMode == ConfigManager.ServerRequestsMode.Development)
                 path.Append(ConfigManager.AppSettings.DevelopmentDomainName);
             else
-                path.Append(@"software.oohelp.net/software/api/");
+                path.Append(ConfigManager.AppSettings.ProductionDomainName);
 
-            path.Append(@"files/download/").Append(file.Id.ToString());
+            path.Append(@"/software/api/files/download/").Append(file.Id.ToString());
             return path.ToString();
         }
     }

@@ -15,7 +15,26 @@ public class ReleaseFilesService
         _dbContext = context;
         _fileSystemService = fileSystemService;
     }
-    
+
+    public async Task<OperationResult<ReleaseFile>> GetById(Guid id)
+    {
+        try
+        {
+            var dto = await _dbContext.Files.FirstOrDefaultAsync(a => a.Id == id);
+            if (dto == null)
+                return OperationResult<ReleaseFile>.NotFound();
+
+            return new OperationResult<ReleaseFile>(dto.ToDomain());            
+        }
+        catch (Exception ex)
+        {
+            return OperationResult<ReleaseFile>.DatabaseError(ex.GetBaseException().Message);
+        }
+    }
+    public OperationResult<Stream> GetFileTream(Guid id)
+    {
+        return _fileSystemService.GetFileTream(id);
+    }
 
     public async Task<OperationResult<ReleaseFile>> Create(CreateReleaseFileRequest request)
     {
@@ -71,6 +90,12 @@ public class ReleaseFilesService
         {
             return OperationResult<bool>.DatabaseError(ex.GetBaseException().Message);
         }
+    }
+
+    public class FileResult     
+    {
+        public Stream FileStream { get; set; }
+        public string FileName { get; set; }
     }
 
 }
