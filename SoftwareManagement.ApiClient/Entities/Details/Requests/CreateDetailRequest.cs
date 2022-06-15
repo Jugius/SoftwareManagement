@@ -2,7 +2,7 @@
 using SoftwareManagement.ApiClient.Entities.Interfaces;
 
 namespace SoftwareManagement.ApiClient.Entities.Details.Requests;
-public class CreateDetailRequest : BaseDetailsCRUDRequest, IRequestDelete
+public class CreateDetailRequest : BaseDetailsCRUDRequest, IRequestCreate
 {
     public DetailKind Kind { get; set; }
     public string Description { get; set; }

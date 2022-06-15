@@ -2,7 +2,7 @@
 using SoftwareManagement.ApiClient.Entities.Interfaces;
 
 namespace SoftwareManagement.ApiClient.Entities.Files.Requests;
-public class CreateFileRequest : BaseFilesCRUDRequest, IRequestDelete
+public class CreateFileRequest : BaseFilesCRUDRequest, IRequestCreate
 {    
     public string Name { get; set; }
     public FileKind Kind { get; set; }
