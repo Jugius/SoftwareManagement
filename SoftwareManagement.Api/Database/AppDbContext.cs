@@ -1,5 +1,6 @@
 ﻿using SoftwareManagement.Api.Database.DTO;
 using Microsoft.EntityFrameworkCore;
+using SoftwareManagement.Api.Database.DataConverters;
 
 namespace SoftwareManagement.Api.Database;
 
@@ -14,6 +15,13 @@ public class AppDbContext : DbContext
     {
         //Database.EnsureDeleted();
         //Database.EnsureCreated();
+    }
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.Properties<DateOnly>()
+          .HaveConversion<DateOnlyConverter, DateOnlyComparer>()
+          .HaveColumnType("date");
+        //base.ConfigureConventions(configurationBuilder);
     }
 
 }

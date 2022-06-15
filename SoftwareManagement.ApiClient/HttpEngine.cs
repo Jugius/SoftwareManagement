@@ -53,6 +53,12 @@ public sealed class HttpEngine<TRequest, TResponse> : HttpEngine
 {
     internal static readonly HttpEngine<TRequest, TResponse> instance = new HttpEngine<TRequest, TResponse>();
 
+    private static readonly JsonSerializerOptions jOptions = new JsonSerializerOptions
+    {
+        Converters = { new JsonStringEnumConverter(), new JsonDateOnlyConverter() },
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    };
+
     public async Task<TResponse> QueryAsync(TRequest request, CancellationToken cancellationToken = default)
     {
         HttpResponseMessage httpMessage;
@@ -84,13 +90,6 @@ public sealed class HttpEngine<TRequest, TResponse> : HttpEngine
             return await HttpEngine.HttpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
         }
 
-
-        JsonSerializerOptions jOptions = new JsonSerializerOptions
-        {
-            Converters = { new JsonStringEnumConverter() },
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        };
-
         HttpMethod method = request switch
         {
             IRequestCreate => HttpMethod.Post,
@@ -111,25 +110,23 @@ public sealed class HttpEngine<TRequest, TResponse> : HttpEngine
 
         using (httpResponse)
         {
-            httpResponse.EnsureSuccessStatusCode();
-
             var response = new TResponse();
 
-            var rawJson = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            JsonSerializerOptions jOptions = new JsonSerializerOptions
+            
+
+            if (httpResponse.IsSuccessStatusCode)
             {
-                Converters = { new JsonStringEnumConverter() },
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            };
 
-            response = JsonSerializer.Deserialize<TResponse>(rawJson, jOptions);
+                response = await JsonSerializer.DeserializeAsync<TResponse>(await httpResponse.Content.ReadAsStreamAsync(), jOptions).ConfigureAwait(false);
+                if (response == null)
+                    throw new NullReferenceException(nameof(response));              
 
-            if (response == null)
-                throw new NullReferenceException(nameof(response));
-
-            response.Status = httpResponse.IsSuccessStatusCode
-                ? response.Status ?? Status.Ok
-                : Status.HttpError;
+            }
+            else
+            {
+                response.Status = Status.HttpError;
+                response.ErrorMessage = httpResponse.ReasonPhrase;
+            }
 
             return response;
         }

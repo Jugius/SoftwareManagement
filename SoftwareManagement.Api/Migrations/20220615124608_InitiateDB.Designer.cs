@@ -12,8 +12,8 @@ using SoftwareManagement.Api.Database;
 namespace SoftwareManagement.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220609175047_Initiate")]
-    partial class Initiate
+    [Migration("20220615124608_InitiateDB")]
+    partial class InitiateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,7 +64,7 @@ namespace SoftwareManagement.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Version")
                         .IsRequired()

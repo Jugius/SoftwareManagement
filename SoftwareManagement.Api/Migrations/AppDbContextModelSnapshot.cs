@@ -62,7 +62,7 @@ namespace SoftwareManagement.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Version")
                         .IsRequired()

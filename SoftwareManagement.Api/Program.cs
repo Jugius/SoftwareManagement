@@ -20,6 +20,9 @@ builder.Services.AddControllers()
         //Сериализация типа Enum в строку
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 
+        options.JsonSerializerOptions.Converters.Add(new JsonDateOnlyConverter());
+
+
         //запись форматированного JSON 
         //options.JsonSerializerOptions.WriteIndented = true;
 
@@ -35,6 +38,7 @@ builder.Services.AddControllers()
 builder.Services.AddScoped<ApplicationsService>();
 builder.Services.AddScoped<ReleasesService>();
 builder.Services.AddScoped<ReleaseDetailsService>();
+builder.Services.AddScoped<ReleaseFilesService>();
 
 
 builder.Services.AddSingleton<FileSystemService>();
@@ -61,7 +65,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

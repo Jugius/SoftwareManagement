@@ -32,7 +32,7 @@ namespace SoftwareManager.Dialogs
             _model = new ReleasePropertiesDialogVM
             {
                 ReleaseKind = release.Kind,
-                ReleaseDate = release.ReleaseDate
+                ReleaseDate = release.ReleaseDate.ToDateTime(TimeOnly.MinValue)
             };
             Version v = release.Version;
             _model.Major = v.Major;
@@ -50,7 +50,7 @@ namespace SoftwareManager.Dialogs
                 Id = _release.Id,
                 ApplicationId = _release.ApplicationId,
                 Kind = _model.ReleaseKind,
-                ReleaseDate = _model.ReleaseDate,
+                ReleaseDate = DateOnly.FromDateTime(_model.ReleaseDate),
                 Version = _model.GetVersion(),
             };
 

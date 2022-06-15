@@ -130,7 +130,7 @@ public class DialogsProvider
         {
             ApplicationId = appInfo.Id,
             Kind = ReleaseKind.Minor,
-            ReleaseDate = DateTime.Now,
+            ReleaseDate = DateOnly.FromDateTime(DateTime.Now),
             Version = GenerateNextReleaseVersion(appInfo.Releases.Max(a => a.Version))
         };
 

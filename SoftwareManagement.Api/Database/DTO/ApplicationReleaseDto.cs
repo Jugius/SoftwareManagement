@@ -10,7 +10,7 @@ public class ApplicationReleaseDto
     [Required]
     [MaxLength(20)]
     public string Version { get; set; }
-    public DateTime ReleaseDate { get; set; }
+    public DateOnly ReleaseDate { get; set; }
     public int Kind { get; set; }
     public Guid ApplicationId { get; set; }
 

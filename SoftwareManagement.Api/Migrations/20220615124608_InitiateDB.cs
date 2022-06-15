@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftwareManagement.Api.Migrations
 {
-    public partial class Initiate : Migration
+    public partial class InitiateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,7 @@ namespace SoftwareManagement.Api.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Version = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
                     Kind = table.Column<int>(type: "int", nullable: false),
                     ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },

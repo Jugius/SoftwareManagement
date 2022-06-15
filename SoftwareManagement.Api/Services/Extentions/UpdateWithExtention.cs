@@ -16,7 +16,7 @@ public static class UpdateWithExtention
         dto.ApplicationId = request.ApplicationId;
         dto.Version = request.Version.ToString();
         dto.Kind = (int)request.Kind;
-        dto.ReleaseDate = DateTime.Now;
+        dto.ReleaseDate = request.ReleaseDate;
     }
 
     public static void UpdateWith(this ReleaseDetailDto dto, UpdateReleaseDetailRequest request)
