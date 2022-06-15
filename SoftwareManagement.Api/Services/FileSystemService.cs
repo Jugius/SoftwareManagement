@@ -4,10 +4,11 @@ using SoftwareManagement.Api.Services.Helpers;
 namespace SoftwareManagement.Api.Services;
 public class FileSystemService
 {
+    private const string FilesFolder = "UploadedFiles";
     private readonly string _uploadDirectory;
     public FileSystemService(IWebHostEnvironment env)
     {
-        this._uploadDirectory = Path.Combine(env.ContentRootPath, "UploadedFiles");
+        this._uploadDirectory = Path.Combine(env.ContentRootPath, FilesFolder);
     }
 
     public Task<OperationResult<bool>> SaveFile(byte[] fileBytes, Guid fileId)

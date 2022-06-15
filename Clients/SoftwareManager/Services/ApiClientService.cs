@@ -83,11 +83,7 @@ namespace SoftwareManager.Services
         }
 
         internal async Task<OperationResult<bool>> Remove(ApplicationInfoVM appInfo)
-        {
-            var appFiles = appInfo.Releases.SelectMany(a => a.Files).ToList();
-            foreach (var appFile in appFiles)
-                await Remove(appFile);
-
+        {           
             var request = appInfo.ToRequestDelete();
             FillWithConfig(request);
 
@@ -140,10 +136,6 @@ namespace SoftwareManager.Services
 
         internal async Task<OperationResult<bool>> Remove(ApplicationReleaseVM release)
         {
-            var files = release.Files.ToArray();
-            foreach (var file in files)
-                await Remove(file);
-
             var request = release.ToRequestDelete();
             FillWithConfig(request);
 

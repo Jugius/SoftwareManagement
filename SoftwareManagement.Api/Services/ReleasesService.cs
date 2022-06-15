@@ -11,7 +11,12 @@ namespace SoftwareManagement.Api.Services;
 public class ReleasesService
 {
     private readonly AppDbContext _dbContext;
-    public ReleasesService(AppDbContext context) => _dbContext = context;
+    private readonly FileSystemService _fileSystemService;
+    public ReleasesService(AppDbContext context, FileSystemService fileSystemService)
+    {
+        _dbContext = context;
+        _fileSystemService = fileSystemService;
+    }
 
     public async Task<OperationResult<ApplicationRelease>> GetById(Guid id, bool includeDetails)
     {
@@ -91,6 +96,16 @@ public class ReleasesService
             var dto = await _dbContext.Releases.FirstOrDefaultAsync(a => a.Id == request.Id);
             if (dto == null)
                 return OperationResult<bool>.NotFound();
+
+            var filesIds = await _dbContext.Files.AsNoTracking()
+                .Where(a => a.ReleaseId == dto.Id)                
+                .Select(a => a.Id)
+                .ToListAsync();
+
+            foreach (var id in filesIds)
+            {
+                _fileSystemService.DeleteFile(id);
+            }
 
             _dbContext.Releases.Remove(dto);
             await _dbContext.SaveChangesAsync();

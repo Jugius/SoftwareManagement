@@ -11,7 +11,13 @@ namespace SoftwareManagement.Api.Services;
 public class ApplicationsService
 {
     private readonly AppDbContext _dbContext;
-    public ApplicationsService(AppDbContext context) => _dbContext = context;
+    private readonly FileSystemService _fileSystemService;
+
+    public ApplicationsService(AppDbContext context, FileSystemService fileSystemService)
+    {
+        _dbContext = context;
+        _fileSystemService = fileSystemService;
+    }
     public async Task<List<ApplicationInfo>> GetAll(bool includeDetails)
     {
         IQueryable<ApplicationInfoDto> query = _dbContext.Applications;
@@ -106,11 +112,22 @@ public class ApplicationsService
     {
         try
         {
-            var dto = await _dbContext.Applications.FirstOrDefaultAsync(a => a.Id == request.Id);
-            if (dto == null)
+            var app = await _dbContext.Applications.FirstOrDefaultAsync(a => a.Id == request.Id);
+            if (app == null)
                 return OperationResult<bool>.NotFound();
 
-            _dbContext.Applications.Remove(dto);
+            var filesIds = await _dbContext.Releases.AsNoTracking()
+                .Where(a => a.ApplicationId == app.Id)
+                .SelectMany(a => a.Files)
+                .Select(a => a.Id)
+                .ToListAsync();
+
+            foreach (var id in filesIds)
+            {
+                _fileSystemService.DeleteFile(id);
+            }
+
+            _dbContext.Applications.Remove(app);
             await _dbContext.SaveChangesAsync();
 
             return new OperationResult<bool>(true);
@@ -119,5 +136,5 @@ public class ApplicationsService
         {
             return OperationResult<bool>.DatabaseError(ex.GetBaseException().Message);
         }
-    }
+    }    
 }
