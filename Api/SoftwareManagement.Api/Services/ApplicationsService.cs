@@ -36,7 +36,9 @@ public class ApplicationsService
         IQueryable<ApplicationInfoDto> query = _dbContext.Applications.Where(a => a.Id == id);
 
         if (includeDetails)
-            query = query.Include(a => a.Releases).ThenInclude(a => a.Details);
+            query = query
+                    .Include(a => a.Releases).ThenInclude(a => a.Details).AsSplitQuery()
+                    .Include(a => a.Releases).ThenInclude(a => a.Files).AsSplitQuery();
         try
         {
             var result = await query.FirstOrDefaultAsync();
@@ -59,7 +61,9 @@ public class ApplicationsService
         IQueryable<ApplicationInfoDto> query = _dbContext.Applications.Where(a => a.Name == name);
 
         if (includeDetails)
-            query = query.Include(a => a.Releases).ThenInclude(a => a.Details);
+            query = query
+                    .Include(a => a.Releases).ThenInclude(a => a.Details).AsSplitQuery()
+                    .Include(a => a.Releases).ThenInclude(a => a.Files).AsSplitQuery();
 
         try
         {
