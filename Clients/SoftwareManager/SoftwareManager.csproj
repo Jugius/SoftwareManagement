@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SoftwareManagement.Api.Domain\SoftwareManagement.Api.Domain.csproj" />
-    <ProjectReference Include="..\..\SoftwareManagement.ApiClient\SoftwareManagement.ApiClient.csproj" />
+    <ProjectReference Include="..\..\Api\SoftwareManagement.Api.Domain\SoftwareManagement.Api.Domain.csproj" />
+    <ProjectReference Include="..\SoftwareManagement.ApiClient\SoftwareManagement.ApiClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>
