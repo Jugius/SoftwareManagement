@@ -39,6 +39,7 @@ builder.Services.AddScoped<ApplicationsService>();
 builder.Services.AddScoped<ReleasesService>();
 builder.Services.AddScoped<ReleaseDetailsService>();
 builder.Services.AddScoped<ReleaseFilesService>();
+builder.Services.AddScoped<UpdatesService>();
 
 
 builder.Services.AddSingleton<FileSystemService>();

@@ -92,6 +92,7 @@ public sealed class HttpEngine<TRequest, TResponse> : HttpEngine
 
         HttpMethod method = request switch
         {
+            IRequestPost => HttpMethod.Post,
             IRequestCreate => HttpMethod.Post,
             IRequestUpdate => HttpMethod.Put,
             IRequestDelete => HttpMethod.Delete,

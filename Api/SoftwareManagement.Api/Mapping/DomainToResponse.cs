@@ -25,6 +25,13 @@ public static class DomainToResponse
             Release = release
         };
 
+    public static ReleasesResponse ToResponse(this IEnumerable<ApplicationRelease> releases) =>
+        new ReleasesResponse
+        {
+            Status = Contracts.Common.Enums.Status.Ok,
+            Releases = releases.ToArray()
+        };
+
     public static DetailResponse ToResponse(this ReleaseDetail detail) =>
         new DetailResponse
         {
