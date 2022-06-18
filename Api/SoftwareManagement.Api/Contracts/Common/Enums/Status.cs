@@ -4,12 +4,15 @@ namespace SoftwareManagement.Api.Contracts.Common.Enums;
 public enum Status
 {
     Ok,
+
     RequestDenied,
-    InvalidRequest,
-    UnknownError,
-    HttpError,
     InvalidKey,
+
+    InvalidRequest,    
+    
     NotFound,
     DatabaseError,
-    FileSystemError
+    FileSystemError,
+
+    UnknownError,
 }
