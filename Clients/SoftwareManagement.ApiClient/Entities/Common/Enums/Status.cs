@@ -4,12 +4,18 @@ namespace SoftwareManagement.ApiClient.Entities.Common.Enums;
 public enum Status
 {
     Ok,
+
     RequestDenied,
-    InvalidRequest,
-    UnknownError,
-    HttpError,
     InvalidKey,
+
+    InvalidRequest,
+
     NotFound,
     DatabaseError,
-    FileSystemError
+    FileSystemError,
+
+    UnknownError,
+    
+    HttpError,    
+    ReadResponseError
 }

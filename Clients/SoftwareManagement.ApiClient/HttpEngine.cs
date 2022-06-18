@@ -106,30 +106,32 @@ public sealed class HttpEngine<TRequest, TResponse> : HttpEngine
     }
     internal async Task<TResponse> ProcessResponseAsync(HttpResponseMessage httpResponse)
     {
-        if (httpResponse == null)
-            throw new ArgumentNullException(nameof(httpResponse));
-
         using (httpResponse)
         {
-            var response = new TResponse();
-
-            
-
             if (httpResponse.IsSuccessStatusCode)
             {
-
-                response = await JsonSerializer.DeserializeAsync<TResponse>(await httpResponse.Content.ReadAsStreamAsync(), jOptions).ConfigureAwait(false);
-                if (response == null)
-                    throw new NullReferenceException(nameof(response));              
-
+                try
+                {
+                    using var stream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    return await JsonSerializer.DeserializeAsync<TResponse>(stream, jOptions).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    return new TResponse
+                    {
+                        Status = Status.ReadResponseError,
+                        ErrorMessage = ex.Message,
+                    };
+                } 
             }
             else
             {
-                response.Status = Status.HttpError;
-                response.ErrorMessage = httpResponse.ReasonPhrase;
+                return new TResponse
+                {
+                    Status = Status.HttpError,
+                    ErrorMessage = httpResponse.ReasonPhrase
+                };
             }
-
-            return response;
         }
     }
 
